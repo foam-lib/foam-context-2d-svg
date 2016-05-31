@@ -17,7 +17,32 @@ const SvgType = {
     POLYGON : 'polygon',
     TEXT: 'text',
     TEXT_PATH: 'textPath',
-    USE: 'use'
+    USE: 'use',
+    FILTER : 'filter',
+    FE_BLEND : 'feBlend',
+    FE_COLOR_MATRIX : 'feColorMatrix',
+    FE_COMPONENT_TRANSFER : 'feComponentTransfer',
+    FE_COMPOSITE : 'feComposite',
+    FE_CONVOLVE_MATRIX : 'feConvolveMatrix',
+    FE_DIFFUSE_LIGHTING : 'feDiffuseLighting',
+    FE_DISPLACEMENT_MAP : 'feDisplacementMap',
+    FE_DISTANT_LIGHT : 'feDistantLight',
+    FE_FLOOD : 'feFlood',
+    FE_FUNC_A : 'feFuncA',
+    FE_FUNC_B : 'feFuncB',
+    FE_FUNC_G : 'feFuncG',
+    FE_FUNC_R : 'feFuncR',
+    FE_GAUSSIAN_BLUR : 'feGaussianBlur',
+    FE_IMAGE : 'feImage',
+    FE_MERGE : 'feMerge',
+    FE_MERGE_NODE : 'feMergeNode',
+    FE_MORPHOLOGY : 'feMorphology',
+    FE_OFFSET : 'feOffset',
+    FE_POINT_LIGHT : 'fePointLight',
+    FE_SPECULAR_LIGHTING : 'feSpecularLighting',
+    FE_SPOT_LIGHT : 'feSpotLight',
+    FE_TILE : 'feTile',
+    FE_TURBULENCE : 'feTurbulence'
 };
 
 export default SvgType;

@@ -10,6 +10,11 @@ export default class SvgElementTransform extends SvgElementBase{
         this.set(description);
     }
 
+    //can be overridden to prepend transforms
+    _setTransform(transform){
+        this._element.setAttribute('transform',transform);
+    }
+
     /*----------------------------------------------------------------------------------------------------------------*/
     // position
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -55,12 +60,12 @@ export default class SvgElementTransform extends SvgElementBase{
 
     setTransform6(a,b,c,d,e,f){
         this._transform = `matrix(${a},${b},${c},${d},${e},${f})`;
-        this._element.setAttribute('transform',this._transform);
+        this._setTransform(this._transform);
     }
 
     setTransformString(transform){
         this._transform = transform;
-        this._element.setAttribute('transform',this._transform);
+        this._setTransform(this._transform);
     }
 
     getTransform(){
@@ -78,7 +83,7 @@ export default class SvgElementTransform extends SvgElementBase{
 
     transform6(a,b,c,d,e,f){
         this._transform += `matrix(${a},${b},${c},${d},${e},${f}) `;
-        this._element.setAttribute('transform',this._transform);
+        this._setTransform(this._transform);
     }
 
     translate(pos){
@@ -87,7 +92,7 @@ export default class SvgElementTransform extends SvgElementBase{
 
     translate2(x,y){
         this._transform += `translate(${x},${y}) `;
-        this._element.setAttribute('transform',this._transform);
+        this._setTransform(this._transform);
     }
 
     scale(sxy){
@@ -100,12 +105,12 @@ export default class SvgElementTransform extends SvgElementBase{
 
     scale2(x,y){
         this._transform += `scale(${x},${y}) `;
-        this._element.setAttribute('transform',this._transform);
+        this._setTransform(this._transform);
     }
 
     rotate(radians){
         this._transform += `rotate(${radians * 180/Math.PI})`;
-        this._element.setAttribute('transform',this._transform);
+        this._setTransform(this._transform);
     }
 
     set(description_or_SvgElementTransform){

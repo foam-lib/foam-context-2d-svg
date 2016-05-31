@@ -11,6 +11,8 @@ export default class SvgElementBase{
         this._parent = null;
         this._clipPath = null;
         this._mask = null;
+        this._filter = null;
+        this._filterIds = [];
         this.set(description);
     }
 
@@ -21,6 +23,27 @@ export default class SvgElementBase{
     getParent(){
         return this._parent;
     }
+
+    _moveToDefinitions(){
+        if(!SvgDef.hasElement(this)){
+            if(this._id === null){
+                this.setId(`${SvgType.PATH}-${id++}`);
+            }
+            if(this._parent){
+                this._parent.removeChild(this);
+            }
+            SvgDef.appendElement(this);
+        }
+        return this._id;
+    }
+
+    getCssStyle(){
+        return this._element.style;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+    // id
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     setId(id){
         this._id = id;
@@ -39,18 +62,9 @@ export default class SvgElementBase{
         return this._id;
     }
 
-    _moveToDefinitions(){
-        if(!SvgDef.hasElement(this)){
-            if(this._id === null){
-                this.setId(`${SvgType.PATH}-${id++}`);
-            }
-            if(this._parent){
-                this._parent.removeChild(this);
-            }
-            SvgDef.appendElement(this);
-        }
-        return this._id;
-    }
+    /*----------------------------------------------------------------------------------------------------------------*/
+    // clipPath
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     setClipPath(clipPath){
         if(clipPath === null){
@@ -62,6 +76,14 @@ export default class SvgElementBase{
         this._element.setAttribute('clip-path',`url(#${clipPath._id})`);
     };
 
+    getClipPath(){
+        return this._clipPath;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+    // mask
+    /*----------------------------------------------------------------------------------------------------------------*/
+
     setMask(mask){
         if(mask === null){
             this._mask = null;
@@ -71,6 +93,40 @@ export default class SvgElementBase{
         this._mask = mask;
         this._element.setAttribute('mask',`url(#${mask._id})`);
     }
+
+    getMask(){
+        return this._mask;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+    // shadow
+    /*----------------------------------------------------------------------------------------------------------------*/
+
+    setDropShadow(dropShadow){
+        this.setFilter(dropShadow);
+    }
+
+    getDropShadow(){
+        return this._filter;
+    }
+
+    setFilter(filter){
+        if(filter === null){
+            this._filter = null;
+            this._element.removeAttribute('filter');
+            return;
+        }
+        this._filter = filter;
+        this._element.setAttribute('filter',`url(#${filter._id})`);
+    }
+
+    getFilter(){
+        return this._filter;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+    // set
+    /*----------------------------------------------------------------------------------------------------------------*/
 
     set(description_or_SvgElementBase){
         if(!description_or_SvgElementBase){
@@ -82,6 +138,7 @@ export default class SvgElementBase{
             const element = description_or_SvgElementBase;
             this.setClipPath(element._clipPath);
             this.setMask(element._mask);
+            this.setFilter(element._filter);
             return;
         }
 
@@ -95,6 +152,9 @@ export default class SvgElementBase{
         }
         if(description.mask !== undefined){
             this.setMask(description.mask);
+        }
+        if(description.dropShadow !== undefined){
+            this.setDropShadow(description.dropShadow);
         }
     }
 }

@@ -21,6 +21,7 @@ export default class SvgPath extends SvgElementStyleable{
     constructor(description_or_SvgPath){
         super(SvgType.PATH);
         this._cmd = '';
+        this._totalLength = 0;
         this.set(description_or_SvgPath);
     }
 
@@ -30,6 +31,7 @@ export default class SvgPath extends SvgElementStyleable{
 
     _updateCmdAttribute(){
         this._element.setAttribute('d',this._cmd);
+        this._totalLength = this._element.getTotalLength();
     }
 
     moveTo(pos){
@@ -115,6 +117,23 @@ export default class SvgPath extends SvgElementStyleable{
 
     close(){
         this._cmd += createSvgPathCmdClose();
+        this._updateCmdAttribute();
+    }
+
+    getTotalLength(){
+        return this._totalLength;
+    }
+
+    getPositionAtLength(distance,out){
+        out = out || [0,0];
+        const p = this._element.getPointAtLength(distance);
+        out[0] = p.x;
+        out[1] = p.y;
+        return out;
+    }
+
+    getPathSegmentAtLength(distance){
+        return this._element.getPathSegAtLength(distance);
     }
 
     set(description_or_SvgPath){

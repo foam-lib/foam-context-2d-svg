@@ -18,7 +18,6 @@ export default class SvgElementStyleable extends SvgElementTransform{
         for(var key in DefaultStyle){
             this._style[key] = DefaultStyle[key];
         }
-
         this.set(description);
     }
 

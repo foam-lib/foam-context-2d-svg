@@ -5,7 +5,7 @@ import SvgElementStyleable from './SvgElementStyleable';
 export default class SvgCircle extends SvgElementStyleable{
     constructor(description_or_SvgCircle){
         super(SvgType.CIRCLE);
-        this.setFillStyle('rgba(0,0,0,0)');
+        this.setFillStyle('none');
         this.setStrokeStyle('#000');
         this._radius = 0;
         this.set(description_or_SvgCircle);

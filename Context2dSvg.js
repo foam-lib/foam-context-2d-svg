@@ -20,27 +20,35 @@ class Context2dSvg{
     }
 
     appendChild(element){
-        this._root.appendChild(element);
+        return this._root.appendChild(element);
     }
 
     appendChildren(elements){
-        this._root.appendChildren(elements);
+        return this._root.appendChildren(elements);
     }
 
     removeChild(child){
-        this._root.removeChild(child);
+        return this._root.removeChild(child);
     }
 
     removeChildren(children){
-        this._root.removeChildren(children);
+        return this._root.removeChildren(children);
     }
 
     removeChildAtIndex(index){
-        this._root.removeChildAtIndex(index);
+        return this._root.removeChildAtIndex(index);
     }
 
     getNumChildren(){
         return this._root.getNumChildren();
+    }
+
+    getChildren(){
+        return this._root.getChildren();
+    }
+
+    getChildAtIndex(index){
+        return this._root.getChildAtIndex(index);
     }
 
     createClipPath(description_or_SvgClipPath){
@@ -105,6 +113,14 @@ class Context2dSvg{
 
     createReference(description){
         return this._root.createReference(description);
+    }
+
+    createDropShadow(description_or_SvgDropShadow){
+        return this._root.createDropShadow(description_or_SvgDropShadow);
+    }
+
+    createFilter(description_or_SvgFilter){
+        return this._root.createFilter(description_or_SvgFilter);
     }
 
     getSvgString(){

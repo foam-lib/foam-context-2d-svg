@@ -20,6 +20,8 @@ import SvgPolyline from './SvgPolyline';
 import SvgPolygon from './SvgPolygon';
 import SvgText from './SvgText';
 import SvgReference from './SvgReference';
+import SvgDropShadow from './SvgDropShadow';
+import SvgFilter from './SvgFilter';
 
 export default class SvgRoot{
     constructor(parent){
@@ -51,27 +53,35 @@ export default class SvgRoot{
     }
 
     appendChild(element){
-        this._group.appendChild(element);
+        return this._group.appendChild(element);
     }
 
     appendChildren(elements){
-        this._group.appendChildren(elements);
+        return this._group.appendChildren(elements);
     }
 
     removeChild(child){
-        this._group.removeChild(child);
+        return this._group.removeChild(child);
     }
 
     removeChildren(elements){
-        this._group.removeChildren(elements);
+        return this._group.removeChildren(elements);
     }
 
     removeChildAtIndex(index){
-        this._group.removeChildAtIndex(index);
+        return this._group.removeChildAtIndex(index);
     }
 
     getNumChildren(){
         return this._group.getNumChildren();
+    }
+
+    getChildren(){
+        return this._group.getChildren();
+    }
+
+    getChildAtIndex(index){
+        return this._group.getChildAtIndex(index);
     }
 
     createClipPath(description_or_SvgClipPath){
@@ -136,6 +146,14 @@ export default class SvgRoot{
 
     createReference(description){
         return new SvgReference(description);
+    }
+
+    createDropShadow(description_or_SvgDropShadow){
+        return new SvgDropShadow(description_or_SvgDropShadow);
+    }
+
+    createFilter(description_or_SvgFilter){
+        return new SvgFilter(description_or_SvgFilter);
     }
 
     set(description){

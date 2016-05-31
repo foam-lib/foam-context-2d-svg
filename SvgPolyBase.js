@@ -4,7 +4,7 @@ import SvgElementStyleable from './SvgElementStyleable';
 export default class SvgPolyBase extends SvgElementStyleable{
     constructor(type,description){
         super(type);
-        this.setFillStyle('rgba(0,0,0,0)');
+        this.setFillStyle('none');
         this.setStrokeStyle('#000');
         this._points = '';
         this.set(description);

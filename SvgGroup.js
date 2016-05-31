@@ -16,6 +16,32 @@ export default class SvgGroup extends SvgTransformElement{
         return new SvgGroup(this);
     }
 
+    _setTransform(transform){
+        this._element.setAttribute('transform',`translate(${this._position[0]},${this._position[1]}) ${transform}`);
+    }
+
+    setPositionX(x){
+        this._position[0] = x;
+        this._setTransform(this._transform);
+    }
+
+    setPositionY(y){
+        this._position[1] = y;
+        this._setTransform(this._transform);
+    }
+
+    setPosition2(x,y){
+        this._position[0] = x;
+        this._position[1] = y;
+        this._setTransform(this._transform);
+    }
+
+    setPosition(pos){
+        this._position[0] = pos[0];
+        this._position[1] = pos[1];
+        this._setTransform(this._transform);
+    }
+
     _updateSize(){
         const bounds = this._element.getBoundingClientRect();
         this._size[2] = bounds.width;
@@ -37,12 +63,14 @@ export default class SvgGroup extends SvgTransformElement{
         this._children.push(element);
 
         this._updateSize();
+        return element;
     }
 
     appendChildren(elements){
         for(let i = 0; i < elements.length; ++i){
             this.appendChild(elements[i]);
         }
+        return elements;
     }
 
     removeChild(child){
@@ -55,12 +83,14 @@ export default class SvgGroup extends SvgTransformElement{
         this._children.splice(index,1);
 
         this._updateSize();
+        return child;
     }
 
     removeChildren(children){
         for(let i = 0; i < children.length; ++i){
             this.removeChild(children[i]);
         }
+        return children;
     }
 
     removeChildAtIndex(index){
@@ -73,6 +103,14 @@ export default class SvgGroup extends SvgTransformElement{
         this._children.splice(index,1);
 
         this._updateSize();
+        return child;
+    }
+
+    getChildAtIndex(index){
+        if(index < 0 || index > this._children.length - 1){
+            throw new RangeError(`Invalid child index ${index}.`);
+        }
+        return this._children[index];
     }
 
     getChildren(){

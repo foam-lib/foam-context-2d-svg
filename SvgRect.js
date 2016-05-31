@@ -5,7 +5,7 @@ import SvgElementStyleable from './SvgElementStyleable';
 export default class SvgRect extends SvgElementStyleable{
     constructor(description_or_SvgRect){
         super(SvgType.RECT);
-        this.setFillStyle('rgba(0,0,0,0)');
+        this.setFillStyle('none');
         this.setStrokeStyle('#000');
         this._size = [0,0];
         this.set(description_or_SvgRect);

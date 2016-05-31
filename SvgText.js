@@ -24,6 +24,7 @@ export default class SvgText extends SvgElementStyleable{
         this._length = null;
         this._string = '';
         this._path = null;
+        this._pathOffset = 0;
         this._textPathElement = null;
 
         this.set(description_or_SvgText);
@@ -158,8 +159,13 @@ export default class SvgText extends SvgElementStyleable{
             this._textPathElement.textContent = this._string;
         }
         let id = path._moveToDefinitions();
-
         setHrefAttrib(this._textPathElement,`#${id}`);
+        this._textPathElement.setAttribute('startOffset',this._pathOffset);
+    }
+
+    setPathOffset(offset){
+        this._pathOffset = offset;
+        this._textPathElement.setAttribute('startOffset',this._pathOffset);
     }
 
     set(description_or_SvgText){
