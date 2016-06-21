@@ -1,6 +1,7 @@
+import validateOptions from 'validate-option';
+
 import {createSvgObject} from './SvgCmd';
 import SvgType from './SvgType';
-import * as Vec2 from 'foam-math/Vec2';
 
 import SvgDef from './SvgDef';
 import SvgClipPath from './SvgClipPath';
@@ -23,9 +24,14 @@ import SvgReference from './SvgReference';
 import SvgDropShadow from './SvgDropShadow';
 import SvgFilter from './SvgFilter';
 
+const DefaultConfig = Object.freeze({
+    width: 800,
+    height: 600
+});
+
 export default class SvgRoot{
-    constructor(parent){
-        this._element = parent.appendChild(createSvgObject(SvgType.SVG));
+    constructor(element_or_config){
+        this._element = createSvgObject(SvgType.SVG);
         this._element.setAttribute('version',1.2);
         this._element.setAttribute('xmlns','http://www.w3.org/2000/svg');
         this._element.setAttribute('xmlns:xlink','http://www.w3.org/1999/xlink');
@@ -33,16 +39,33 @@ export default class SvgRoot{
         this._group = new SvgGroup();
         this._element._parent = this;
         this._element.appendChild(this._group._element);
-        this.updateSize();
+
+        if(element_or_config instanceof HTMLElement){
+            element_or_config.appendChild(this._element);
+            this.updateSizeFromParent();
+        } else {
+            let config = validateOptions(element_or_config,DefaultConfig);
+            this.setSize(config.width,config.height);
+        }
     }
 
-    updateSize(){
+    updateSizeFromParent(){
         const parentNode = this._element.parentNode;
         const width  = parentNode.offsetWidth;
         const height = parentNode.offsetHeight;
+        this.setSize(width,height);
+    }
+
+    setSize(width,height){
         this._element.setAttribute('width',width);
         this._element.setAttribute('height',height);
-        this._element.setAttribute('viewbox',`0 0 ${width} ${height}` );
+        this._element.setAttribute('viewbox',`0 0 ${width} ${height}`);
+
+        const parentNode = this._element.parentNode;
+        if(parentNode && (parentNode.offsetWidth !== width || parentNode.offsetHeight !== height)){
+            parentNode.style.width = width + 'px';
+            parentNode.style.height = height + 'px';
+        }
     }
 
     addToDefinitions(element){
