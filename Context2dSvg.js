@@ -5,14 +5,18 @@ import SvgRoot from './SvgRoot';
 /*--------------------------------------------------------------------------------------------------------------------*/
 
 class Context2dSvg{
-    constructor(element,config){
-        this._element = element;
-        this._root = new SvgRoot(this._element);
+    constructor(element_or_config){
+        this._element = element_or_config instanceof HTMLElement ? element_or_config : null;
+        this._root = new SvgRoot(element_or_config);
         this._xmlSerializer = new XMLSerializer();
     }
 
     updateSize(){
-        this._root.updateSize();
+        this._root.updateSizeFromParent();
+    }
+
+    setSize(width,height){
+        this._root.setSize(width,height);
     }
 
     addToDefinitions(element){
