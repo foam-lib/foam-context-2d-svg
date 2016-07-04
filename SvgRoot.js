@@ -35,6 +35,8 @@ export default class SvgRoot{
         this._element.setAttribute('version',1.2);
         this._element.setAttribute('xmlns','http://www.w3.org/2000/svg');
         this._element.setAttribute('xmlns:xlink','http://www.w3.org/1999/xlink');
+        this._size = [0,0];
+        
         this._defs = SvgDef.element = this._element.appendChild(createSvgObject(SvgType.DEFS));
         this._group = new SvgGroup();
         this._element._parent = this;
@@ -49,6 +51,10 @@ export default class SvgRoot{
         }
     }
 
+    getElement(){
+        return this._element;
+    }
+
     updateSizeFromParent(){
         const parentNode = this._element.parentNode;
         const width  = parentNode.offsetWidth;
@@ -60,12 +66,29 @@ export default class SvgRoot{
         this._element.setAttribute('width',width);
         this._element.setAttribute('height',height);
         this._element.setAttribute('viewbox',`0 0 ${width} ${height}`);
+        this._size[0] = width;
+        this._size[1] = height;
 
         const parentNode = this._element.parentNode;
         if(parentNode && (parentNode.offsetWidth !== width || parentNode.offsetHeight !== height)){
             parentNode.style.width = width + 'px';
             parentNode.style.height = height + 'px';
         }
+    }
+
+    getSize(out){
+        out = out || [0,0];
+        out[0] = this._size[0];
+        out[1] = this._size[1];
+        return out;
+    }
+
+    getWidth(){
+        return this._size[0];
+    }
+
+    getHeight(){
+        return this._size[1];
     }
 
     addToDefinitions(element){
