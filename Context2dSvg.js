@@ -11,12 +11,32 @@ class Context2dSvg{
         this._xmlSerializer = new XMLSerializer();
     }
 
+    getElement(){
+        return this._element;
+    }
+
+    getRootElement(){
+        return this._root.getElement();
+    }
+
     updateSize(){
         this._root.updateSizeFromParent();
     }
 
     setSize(width,height){
         this._root.setSize(width,height);
+    }
+
+    getSize(out){
+        return this._root.getSize(out);
+    }
+
+    getWidth(){
+        return this._root.getWidth();
+    }
+
+    getHeight(){
+        return this._root.getHeight();
     }
 
     addToDefinitions(element){
