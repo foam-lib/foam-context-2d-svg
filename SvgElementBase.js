@@ -41,6 +41,10 @@ export default class SvgElementBase{
         return this._element.style;
     }
 
+    getBoundingClientRect(){
+        return this._element.getBoundingClientRect();
+    }
+
     /*----------------------------------------------------------------------------------------------------------------*/
     // event listener
     /*----------------------------------------------------------------------------------------------------------------*/
