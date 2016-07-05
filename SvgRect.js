@@ -8,6 +8,7 @@ export default class SvgRect extends SvgElementStyleable{
         this.setFillStyle('none');
         this.setStrokeStyle('#000');
         this._size = [0,0];
+        this._cornerRadius = 0;
         this.set(description_or_SvgRect);
     }
 
@@ -46,6 +47,16 @@ export default class SvgRect extends SvgElementStyleable{
         return this._size[1];
     }
 
+    setCornerRadius(radius){
+        this._cornerRadius = radius;
+        this._element.setAttribute('rx',radius);
+        this._element.setAttribute('ry',radius);
+    }
+
+    getCornerRadius(){
+        return this._cornerRadius;
+    }
+
     set(description_or_SvgRect){
         if(!description_or_SvgRect){
             return;
@@ -69,6 +80,9 @@ export default class SvgRect extends SvgElementStyleable{
         }
         if(description.height !== undefined){
             this.setHeight(description.height);
+        }
+        if(description.cornerRadius){
+            this.setCornerRadius(description.cornerRadius);
         }
     }
 }
