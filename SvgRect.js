@@ -66,6 +66,7 @@ export default class SvgRect extends SvgElementStyleable{
         if(description_or_SvgRect instanceof SvgRect){
             const element = description_or_SvgRect;
             this.setSize(element._size);
+            this.setCornerRadius(element._cornerRadius);
             return;
         }
 
