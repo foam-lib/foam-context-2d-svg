@@ -34,6 +34,12 @@ export default class SvgPath extends SvgElementStyleable{
         this._totalLength = this._element.getTotalLength();
     }
 
+    clear(){
+        this._cmd = '';
+        this._element.setAttribute('d',this._cmd);
+        this._totalLength = 0;
+    }
+
     moveTo(pos){
         this.moveTo2(pos[0],pos[1]);
     }
