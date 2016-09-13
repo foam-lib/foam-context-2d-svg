@@ -7,6 +7,7 @@ let id = 0;
 export default class SvgElementBase{
     constructor(type,description){
         this._id = null;
+        this._class = null;
         this._element = createSvgObject(type);
         this._parent = null;
         this._clipPath = null;
@@ -76,6 +77,19 @@ export default class SvgElementBase{
         }
         this.setId(`auto-${id++}`);
         return this._id;
+    }
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+    // class
+    /*----------------------------------------------------------------------------------------------------------------*/
+
+    setClass(class_){
+        this._class = class_;
+        this._element.setAttribute('class',this._class);
+    }
+
+    getClass(){
+        return this._class;
     }
 
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -162,6 +176,9 @@ export default class SvgElementBase{
 
         if(description.id !== undefined){
             this.setId(description.id)
+        }
+        if(description.class !== undefined){
+            this.setClass(description.class);
         }
         if(description.clipPath !== undefined){
             this.setClipPath(description.clipPath);
