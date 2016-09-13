@@ -87,6 +87,13 @@ export default class SvgGroup extends SvgTransformElement{
     }
 
     removeChildren(children){
+        if(children === undefined){
+            children = this._children.slice(0);
+            while(this._children.length){
+                this.removeChildAtIndex(0);
+            }
+            return children;
+        }
         for(let i = 0; i < children.length; ++i){
             this.removeChild(children[i]);
         }
